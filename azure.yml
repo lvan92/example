@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-services-deployment
+  labels:
+    app: event-services-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: event-services
+  template:
+    metadata:
+      labels:
+        app: event-services
+    spec:
+      containers:
+      - name: nginx
+        image: ultrasynccontainerregistry.azurecr.io/event-services:event-svc
+        ports:
+            - containerPort: 3000

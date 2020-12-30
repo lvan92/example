@@ -1,0 +1,1459 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is document API for UltraSync",
+    "version": "1.0.0",
+    "title": "Swagger UltraSync"
+  },
+  "host": "localhost:3000/",
+  "tags": [
+    {
+      "name": "Events",
+      "description": "Event's information"
+    },
+    {
+      "name": "Event Sport Groups",
+      "description": "Event Sport Group's information"
+    },
+    {
+      "name": "Tribes",
+      "description": "Tribe's information"
+    },
+    {
+      "name": "Impacts",
+      "description": "Impact's information"
+    },
+    {
+      "name": "Session",
+      "description": "Session's information"
+    },
+    {
+      "name": "Sponsor",
+      "description": "Sponsor's information"
+    },
+    {
+      "name": "Sound",
+      "description": "Sound's information"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/api/event/condition/{condition}": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get all events",
+        "description": "Condition: [future = all events not yet finished], [app-future = all events not yet finished ( for mobile app not include inactive event)] ,[past = all events finished]",
+        "operationId": "getAllEventByCondition",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/eventList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/event": {
+      "post": {
+        "tags": ["Events"],
+        "summary": "Create a new Event",
+        "description": "",
+        "operationId": "addEvent",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Event that need to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/event/{event_id}": {
+      "put": {
+        "tags": ["Events"],
+        "summary": "Update an event",
+        "description": "",
+        "operationId": "updateEvent",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Event that need to be edited",
+            "schema": {
+              "$ref": "#/definitions/eventUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get Event Detail",
+        "description": "",
+        "operationId": "eventDetail",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/eventDetail"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/event/upComing": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get Up Coming Event",
+        "description": "",
+        "operationId": "upcomingEvent",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/eventList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/event/{event_id}/status": {
+      "put": {
+        "tags": ["Events"],
+        "summary": "Change status of event to inactive / active",
+        "description": "",
+        "operationId": "updateEventStatus",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Event that need to be changed",
+            "properties": {
+              "isactive": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/eventGroup": {
+      "get": {
+        "tags": ["Event Sport Groups"],
+        "summary": "Get all event sport groups",
+        "description": "",
+        "operationId": "getAllEventSportGroup",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/eventSportGroupList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/tribe": {
+      "get": {
+        "tags": ["Tribes"],
+        "summary": "Get all tribes",
+        "description": "",
+        "operationId": "getAllTribes",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/tribeList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/impact": {
+      "get": {
+        "tags": ["Impacts"],
+        "summary": "Get all impacts",
+        "description": "",
+        "operationId": "getAllImpacts",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/impactList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "post": {
+      "tags": ["Impacts"],
+      "summary": "Create impact",
+      "description": "",
+      "operationId": "createImpact",
+      "produces": ["application/json", "application/xml"],
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "description": "Create a new Impact",
+          "schema": {
+            "type": "object",
+            "$ref": "#/definitions/impactCreate"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "schema": {
+            "type": "object",
+            "$ref": "#/definitions/impactCreate"
+          }
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "500": {
+          "description": "Internal Server Error"
+        }
+      }
+    },
+    "/api/impact/{impact_id}": {
+      "put": {
+        "tags": ["Impacts"],
+        "summary": "Update Impact",
+        "description": "",
+        "operationId": "updateImpact",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Event that need to be changed",
+            "schema": {
+              "$ref": "#/definitions/impactUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/impactUpdate"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/session": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Create Sessions",
+        "description": "",
+        "operationId": "createSession",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create a new Session",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/sessionCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/sessionCreate"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sponsor": {
+      "get": {
+        "tags": ["Sponsor"],
+        "summary": "Get All Sponsors",
+        "description": "",
+        "operationId": "getAllSponsor",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/sponsorList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sound": {
+      "post": {
+        "tags": ["Sound"],
+        "summary": "Create Sounds",
+        "description": "",
+        "operationId": "createSounds",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create a new Sound",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/soundCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Sound"],
+        "summary": "Get All Sounds",
+        "description": "",
+        "operationId": "getSounds",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/soundList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sound/{sound_id}": {
+      "delete": {
+        "tags": ["Sound"],
+        "summary": "Delete Sound",
+        "description": "",
+        "operationId": "deleteSound",
+        "produces": ["application/json", "application/xml"],
+        "responses": {
+          "200": {},
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "eventList": {
+      "type": "object",
+      "properties": {
+        "event_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_name": {
+          "type": "string",
+          "example": "Manchester United VS Chelsea"
+        },
+        "event_start_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "event_end_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:21:00"
+        },
+        "event_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_state": {
+          "type": "string",
+          "example": "---"
+        },
+        "isactive": {
+          "type": "boolean",
+          "example": "true"
+        },
+        "ismultiday": {
+          "type": "boolean",
+          "example": "true"
+        },
+        "created_by": {
+          "type": "string",
+          "example": "Admin"
+        },
+        "updated_by": {
+          "type": "string",
+          "example": "null"
+        },
+        "created_at": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "updated_at": {
+          "type": "timestamp",
+          "example": "null"
+        },
+        "event_sport_group": {
+          "type": "object",
+          "properties": {
+            "event_sport_group_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "event_sport_group_name": {
+              "type": "string",
+              "example": "MU"
+            }
+          }
+        },
+        "tribe": {
+          "type": "object",
+          "properties": {
+            "tribe_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "tribe_name": {
+              "type": "string",
+              "example": "MU"
+            },
+            "tribe_image_url": {
+              "type": "string",
+              "example": "URL SAMPLE"
+            }
+          }
+        },
+        "opponent_tribe": {
+          "type": "object",
+          "properties": {
+            "tribe_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "tribe_name": {
+              "type": "string",
+              "example": "Chelsea"
+            },
+            "tribe_image_url": {
+              "type": "string",
+              "example": "URL SAMPLE"
+            }
+          }
+        }
+      }
+    },
+    "eventDetail": {
+      "type": "object",
+      "properties": {
+        "event_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_name": {
+          "type": "string",
+          "example": "Manchester United VS Chelsea"
+        },
+        "event_start_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "event_end_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:21:00"
+        },
+        "event_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_state": {
+          "type": "string",
+          "example": "---"
+        },
+        "isactive": {
+          "type": "boolean",
+          "example": "true"
+        },
+        "ismultiday": {
+          "type": "boolean",
+          "example": "true"
+        },
+        "created_by": {
+          "type": "string",
+          "example": "Admin"
+        },
+        "updated_by": {
+          "type": "string",
+          "example": "null"
+        },
+        "created_at": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "updated_at": {
+          "type": "timestamp",
+          "example": "null"
+        },
+        "event_sport_group": {
+          "type": "object",
+          "properties": {
+            "event_sport_group_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "event_sport_group_name": {
+              "type": "string",
+              "example": "MU"
+            }
+          }
+        },
+        "tribe": {
+          "type": "object",
+          "properties": {
+            "tribe_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "tribe_name": {
+              "type": "string",
+              "example": "MU"
+            },
+            "tribe_image_url": {
+              "type": "string",
+              "example": "URL SAMPLE"
+            }
+          }
+        },
+        "opponent_tribe": {
+          "type": "object",
+          "properties": {
+            "tribe_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "tribe_name": {
+              "type": "string",
+              "example": "Chelsea"
+            },
+            "tribe_image_url": {
+              "type": "string",
+              "example": "URL SAMPLE"
+            }
+          }
+        },
+        "session": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "session_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "session_name": {
+                "type": "string",
+                "example": "Prematch"
+              },
+              "sound_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "sponsor_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "sponsor_name": {
+                "type": "string",
+                "example": "LG"
+              },
+              "session_duration": {
+                "type": "integer",
+                "example": 30
+              },
+              "session_start_time": {
+                "type": "timestamp",
+                "example": "2020-07-11T02:00:16.505Z"
+              },
+              "session_max_donation_total": {
+                "type": "number",
+                "example": 200.341
+              },
+              "session_max_donation_per_user": {
+                "type": "number",
+                "example": 0.5
+              },
+              "session_show_logo": {
+                "type": "boolean",
+                "example": true
+              },
+              "session_ads_start": {
+                "type": "boolean",
+                "example": true
+              },
+              "session_ads_end": {
+                "type": "boolean",
+                "example": true
+              },
+              "language_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "language_name": {
+                "type": "string",
+                "example": "English"
+              },
+              "session_keyword": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "session_keyword_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "session_keyword_name": {
+                      "type": "string",
+                      "example": "Go"
+                    },
+                    "language_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "language_name": {
+                      "type": "string",
+                      "example": "English"
+                    }
+                  }
+                }
+              },
+              "impact": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "impact_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "impact_name": {
+                      "type": "string",
+                      "example": "For Our Children"
+                    },
+                    "impact_country_name": {
+                      "type": "string",
+                      "example": "Cambodia"
+                    },
+                    "impact_category": {
+                      "type": "string",
+                      "example": "Health"
+                    },
+                    "language_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "language_name": {
+                      "type": "string",
+                      "example": "English"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "event_name": {
+          "type": "string",
+          "example": "Manchester United VS Chelsea"
+        },
+        "event_description": {
+          "type": "string",
+          "example": " A Premier League's Football Match"
+        },
+        "event_address": {
+          "type": "string",
+          "example": " TMA Address"
+        },
+        "event_sport_group_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "tribe_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "opponent_tribe_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "event_start_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "event_end_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:21:00"
+        },
+        "event_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_repeat": {
+          "type": "boolean",
+          "example": false
+        },
+        "event_image_url": {
+          "type": "string",
+          "example": "Image URL"
+        },
+        "ismultiday": {
+          "type": "boolean",
+          "example": false
+        },
+        "isactive": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "eventUpdate": {
+      "type": "object",
+      "properties": {
+        "event_name": {
+          "type": "string",
+          "example": "Manchester United VS Chelsea"
+        },
+        "event_description": {
+          "type": "string",
+          "example": " A Premier League's Football Match"
+        },
+        "event_address": {
+          "type": "string",
+          "example": " TMA Address"
+        },
+        "event_sport_group_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "tribe_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "opponent_tribe_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "event_start_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "event_end_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:21:00"
+        },
+        "event_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_repeat": {
+          "type": "boolean",
+          "example": false
+        },
+        "event_image_url": {
+          "type": "string",
+          "example": "Image URL"
+        },
+        "ismultiday": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "eventCreate": {
+      "type": "object",
+      "properties": {
+        "event_name": {
+          "type": "string",
+          "example": "Manchester United VS Chelsea"
+        },
+        "event_description": {
+          "type": "string",
+          "example": " A Premier League's Football Match"
+        },
+        "event_address": {
+          "type": "string",
+          "example": " TMA Address"
+        },
+        "event_sport_group_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "tribe_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "opponent_tribe_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "event_start_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "event_end_time": {
+          "type": "timestamp",
+          "example": "2020-20-03:21:00"
+        },
+        "event_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_repeat": {
+          "type": "boolean",
+          "example": false
+        },
+        "event_image_url": {
+          "type": "string",
+          "example": "Image URL"
+        },
+        "ismultiday": {
+          "type": "boolean",
+          "example": false
+        },
+        "country_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "impact": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "impact_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "default_impact": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "eventSportGroupList": {
+      "type": "object",
+      "properties": {
+        "event_sport_group_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_sport_group_name": {
+          "type": "string",
+          "example": "Champion's League"
+        },
+        "no_of_events": {
+          "type": "integer",
+          "example": 2
+        },
+        "event_sport_group_description": {
+          "type": "string",
+          "example": "Worldwide Football League"
+        },
+        "event_sport_group_category": {
+          "type": "integer",
+          "example": 1
+        },
+        "event_sport_group_image_url": {
+          "type": "string",
+          "example": "Sample URL"
+        },
+        "event_sport_group_start_time": {
+          "type": "timestamp",
+          "example": "2020-06-10T18:00:00.000Z"
+        },
+        "event_sport_group_end_time": {
+          "type": "timestamp",
+          "example": "2020-06-11T18:00:00.000Z"
+        },
+        "event_sport_group_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "language_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "language_name": {
+          "type": "string",
+          "example": "English"
+        },
+        "isactive": {
+          "type": "boolean",
+          "example": true
+        },
+        "created_by": {
+          "type": "integer",
+          "example": 2
+        },
+        "updated_by": {
+          "type": "integer",
+          "example": 2
+        },
+        "created_at": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "updated_at": {
+          "type": "timestamp",
+          "example": "null"
+        }
+      }
+    },
+    "tribeList": {
+      "type": "object",
+      "properties": {
+        "tribe_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "tribe_name": {
+          "type": "string",
+          "example": "Manchester United"
+        },
+        "tribe_description": {
+          "type": "integer",
+          "example": "Description"
+        },
+        "tribe_access_code": {
+          "type": "string",
+          "example": "ACCESS CODE"
+        },
+        "no_of_events": {
+          "type": "integer",
+          "example": 1
+        },
+        "no_of_members": {
+          "type": "integer",
+          "example": 3
+        },
+        "tribe_privacy": {
+          "type": "integer",
+          "example": 1
+        },
+        "tribe_image_url": {
+          "type": "string",
+          "example": "Sample URL"
+        },
+        "isactive": {
+          "type": "integer",
+          "example": 1
+        },
+        "language_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "language_name": {
+          "type": "string",
+          "example": "English"
+        },
+        "created_by": {
+          "type": "integer",
+          "example": 2
+        },
+        "updated_by": {
+          "type": "integer",
+          "example": 2
+        },
+        "created_at": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "updated_at": {
+          "type": "timestamp",
+          "example": "null"
+        }
+      }
+    },
+    "impactList": {
+      "type": "object",
+      "properties": {
+        "impact_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "impact_name": {
+          "type": "string",
+          "example": "Prevent Cancer"
+        },
+        "impact_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "impact_total_donation": {
+          "type": "number",
+          "example": 14324.34
+        },
+        "impact_image_url": {
+          "type": "string",
+          "example": "Sample URL"
+        },
+        "category_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "category_name": {
+          "type": "string",
+          "example": "Education"
+        },
+        "country_id": {
+          "type": "integer",
+          "example": 33
+        },
+        "country_name": {
+          "type": "string",
+          "example": "Canada"
+        },
+        "language_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "language_name": {
+          "type": "string",
+          "example": "English"
+        },
+        "isactive": {
+          "type": "integer",
+          "example": 1
+        },
+        "created_by": {
+          "type": "integer",
+          "example": 2
+        },
+        "updated_by": {
+          "type": "integer",
+          "example": 2
+        },
+        "created_at": {
+          "type": "timestamp",
+          "example": "2020-20-03:19:00"
+        },
+        "updated_at": {
+          "type": "timestamp",
+          "example": "null"
+        }
+      }
+    },
+    "impactCreate": {
+      "type": "object",
+      "properties": {
+        "impact_name": {
+          "type": "string",
+          "example": "Prevent Cancer"
+        },
+        "impact_description": {
+          "type": "string",
+          "example": "We aim for a better world"
+        },
+        "impact_achieve": {
+          "type": "string",
+          "example": "1st nobel peace"
+        },
+        "impact_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "impact_image_url": {
+          "type": "string",
+          "example": "Sample URL"
+        },
+        "category_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "country_id": {
+          "type": "integer",
+          "example": 33
+        },
+        "language_id": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "impactUpdate": {
+      "type": "object",
+      "properties": {
+        "impact_name": {
+          "type": "string",
+          "example": "Prevent Cancer"
+        },
+        "impact_description": {
+          "type": "string",
+          "example": "We aim for a better world"
+        },
+        "impact_achieve": {
+          "type": "string",
+          "example": "1st nobel peace"
+        },
+        "impact_total_donation": {
+          "type": "number",
+          "example": 300.321
+        },
+        "impact_type": {
+          "type": "integer",
+          "example": 1
+        },
+        "impact_image_url": {
+          "type": "string",
+          "example": "Sample URL"
+        },
+        "category_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "country_id": {
+          "type": "integer",
+          "example": 33
+        },
+        "language_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "isactive": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "sessionCreate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sponsor_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "sound_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "event_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "session_start_time": {
+            "type": "timestamp",
+            "example": "2020-07-08 02:23:03"
+          },
+          "session_duration": {
+            "type": "integer",
+            "example": 30
+          },
+          "session_max_donation_total": {
+            "type": "number",
+            "example": 130000
+          },
+          "session_max_donation_per_user": {
+            "type": "number",
+            "example": 0.5
+          },
+          "session_show_logo": {
+            "type": "boolean",
+            "example": true
+          },
+          "session_ads_start": {
+            "type": "boolean",
+            "example": true
+          },
+          "session_ads_end": {
+            "type": "boolean",
+            "example": true
+          },
+          "session_content": {
+            "type": "object",
+            "properties": {
+              "language_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "session_name": {
+                "type": "string",
+                "example": "Prematch"
+              },
+              "session_motivation_text": {
+                "type": "string",
+                "example": "Champion"
+              }
+            }
+          },
+          "session_keyword": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "session_keyword_start_time": {
+                  "type": "integer",
+                  "example": 10
+                },
+                "session_keyword_content": {
+                  "type": "object",
+                  "properties": {
+                    "language_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "session_keyword_name": {
+                      "type": "string",
+                      "example": "Keep Going"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sponsorList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sponsor_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "country_id": {
+            "type": "integer",
+            "example": 30
+          },
+          "sponsor_total_funding": {
+            "type": "number",
+            "example": 0
+          },
+          "sponsor_image_url": {
+            "type": "string",
+            "example": "Sample URL"
+          },
+          "sponsor_name": {
+            "type": "string",
+            "example": "LG"
+          },
+          "sponsor_description": {
+            "type": "string",
+            "example": "LG Company"
+          },
+          "language_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "language_name": {
+            "type": "string",
+            "example": "English"
+          },
+          "isactive": {
+            "type": "boolean",
+            "example": true
+          },
+          "created_by": {
+            "type": "integer",
+            "example": 2
+          },
+          "updated_by": {
+            "type": "integer",
+            "example": 2
+          },
+          "created_at": {
+            "type": "timestamp",
+            "example": "2020-07-08 02:23:03"
+          },
+          "updated_at": {
+            "type": "timestamp",
+            "example": null
+          }
+        }
+      }
+    },
+    "soundCreate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sound_file_name": {
+            "type": "string",
+            "example": "Audio Name.mp3"
+          },
+          "sound_url": {
+            "type": "string",
+            "example": " Sample URL"
+          }
+        }
+      }
+    },
+    "soundList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sound_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "sound_file_name": {
+            "type": "string",
+            "example": "file_example_MP3_700KB.mp3"
+          },
+          "sound_url": {
+            "type": "string",
+            "example": "https://ultrasyncstorageaccount1.blob.core.windows.net/sounds/6306508766476773-file_example_MP3_700KB.mp3"
+          },
+          "sound_uploaded_date": {
+            "type": "string",
+            "example": "2020-07-24 03:44:46"
+          },
+          "isactive": {
+            "type": "boolean",
+            "example": true
+          },
+          "created_by": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      }
+    }
+  }
+}

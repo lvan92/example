@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+  # plasma:
+  #   image: openfresh/plasma:latest
+  #   ports:
+  #     - 8080:8080
+  #     - 50051:50051
+  #     - 9998:9998
+  #   depends_on:
+  #     - redis
+  #   environment:
+  #     PLASMA_DEBUG: "true"
+  #     PLASMA_SUBSCRIBER_TYPE: redis
+  #     PLASMA_SUBSCRIBER_REDIS_ADDR: redis:6379
+  #     PLASMA_SUBSCRIBER_REDIS_CHANNELS: plasma
+  #     PLASMA_SUBSCRIBER_REDIS_OVER_MAX_RETRY_BEHAVIOR: alive
+  #     PLASMA_SUBSCRIBER_REDIS_MAX_RETRY: 5
+  #     PLASMA_SUBSCRIBER_REDIS_TIMEOUT: 1s
+  #     PLASMA_SUBSCRIBER_REDIS_RETRY_INTERBAL: 5s
+  #     PLASMA_ORIGIN: "*"
+
+  event:
+    image: ultrasynccontainerregistry.azurecr.io/event-services:event-svc
+    container_name: event-services
+    ports:
+      - 3000:3000
+
+  # storm-provider:
+  #   #build: ./
+  #   image: node:8.11.4
+  #   container_name: storm-provider
+  #   working_dir: /storm-provider
+  #   tty: true
+  #   volumes:
+  #     - ./storm-provider:/storm-provider
+  #   ports:
+  #     - "3000:3000"
+  #   #command: bash -c "yarn install && yarn node index.js"
+  #   command: bash -c "yarn sse"
+  #   links:
+  #     - redis
+
+  # puppeteer:
+  #   #build: ./storm-provider/puppeteer
+  #   image: alekzonder/puppeteer:latest
+  #   working_dir: /storm-provider/puppeteer
+  #   container_name: puppeteer
+  #   tty: true
+  #   volumes:
+  #     - ./storm-provider:/storm-provider
+  #   # command:
+  #   #   bash -c "yarn install && node index.js"
+
+  # nginx:
+  #   build: ./nginx
+  #   image: nginx:1.13.5-alpine
+  #   container_name: nginx
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./nginx:/etc/nginx
+  #   links:
+  #     - storm-provider
+
+  # server:
+  #   #build: ../
+  #   image: nodeyarn:1.0
+  #   ports:
+  #     - 3001:3001
+  #   working_dir: /home/server
+  #   container_name: server
+  #   tty: true
+  #   volumes:
+  #     - ./node_modules/:/home/node_modules
+  #   command: bash -c "yarn start"
+  #   #command: /bin/bash
+  #   # links:
+  #   #  - redis
