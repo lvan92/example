@@ -13,9 +13,33 @@ TribeController.prototype.constructor = TribeController;
 
 TribeController.prototype.getAll = function (req, res, next) {
     const self = this;
-  
     const promise = self.TribeService.getAll();
     this.sendResponse(promise, req, res, next);
   }
+
+TribeController.prototype.createTribe = function (req, res, next) {
+  const self = this;
+  let tribe = req.body;
+  
+  const promise = self.TribeService.createTribe(tribe);
+  this.sendResponse(promise, req, res, next);
+};
+
+TribeController.prototype.deleteTribe = function (req, res, next) {
+  const self = this;
+  let tribe_id = req.params.tribe_id;
+  
+  const promise = self.TribeService.deleteTribe(tribe_id);
+  this.sendResponse(promise, req, res, next);
+}
+
+TribeController.prototype.findById = function (req, res, next) {
+  const self = this;
+  let tribe_id = req.params.tribe_id;
+  // console.log(tribe_id)
+  const promise = self.TribeService.findById(tribe_id);
+  this.sendResponse(promise, req, res, next);
+}
+
 
 module.exports = new TribeController();
