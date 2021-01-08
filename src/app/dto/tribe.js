@@ -62,7 +62,7 @@ const tribeCreateDTO = (item, user) => {
         tribe_id: item.tribe_id,
         tribe_access_code: genAccessCode(),
         tribe_privacy: 1,
-        tribe_image_url: "https://ultrasyncstorageaccount1.blob.core.windows.net/images/tribe/tribe_barca.png",
+        tribe_image_url: "https://ultrasyncstorageaccount1.blob.core.windows.net/images/0923025966317017-cat.jpg",
         created_by: user.user_id,
         updated_by: user.user_id,
         created_at: moment.utc().format(FORMAT_TIME.DATE),
